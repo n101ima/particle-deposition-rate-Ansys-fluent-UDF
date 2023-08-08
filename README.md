@@ -187,3 +187,127 @@ the ratio of the contact force to the contact deformation in an elastic collisio
 
 the critical wall shear velocity. It is a scalar quantity that represents
 the minimum tangential velocity required for the particle to slide along the surface. It is given by $$ucws = \frac{Cu Wa}{\rho d_p} \left(\frac{Wa}{d_p kc}\right)^{1/3}$$ where $Cu$ is the Cunningham correction factor, $Wa$ is the Hamaker constant, $\rho$ is the density of the fluid, $d_p$ is the diameter of the particle, and $kc$ is the contact stiffness coefficient.
+•  utc: a local variable that stores
+
+the critical friction velocity. It is a scalar quantity that represents
+the square root of the critical wall shear velocity. It is given by $$utc = \sqrt{ucws}$$ where $ucws$ is
+the critical wall shear velocity.
+•  utc1: a local variable that stores
+
+the half power of the critical wall shear velocity. It is given by $$utc1 = ucws^{0.5}$$ where $ucws$ is
+the critical wall shear velocity.
+•  vn: a local variable that stores
+
+the normal component of the particle velocity. It is a scalar quantity that represents
+the projection of the particle velocity vector onto the normal vector of the face. It is given by $$vn = \mathbf{v} \cdot \mathbf{n}$$ where $\mathbf{v}$ is
+the particle velocity vector, and $\mathbf{n}$ is
+the normal vector of the face.
+•  vpabs: a local variable that stores
+
+the magnitude of the particle velocity vector. It is a scalar quantity that represents
+the length of the particle velocity vector. It is given by $$vpabs = |\mathbf{v}|$$ where $\mathbf{v}$ is
+the particle velocity vector.
+•  nor_coeff: a macro that defines
+
+the normal coefficient of restitution. It is a dimensionless parameter that represents
+the ratio of the normal component of the particle velocity after and before an elastic collision. It is given by $$nor_coeff = \frac{vn'}{vn}$$ where $vn'$ is
+the normal component of the particle velocity after the collision, and $vn$ is
+the normal component of the particle velocity before the collision.
+•  tan_coeff: a macro that defines
+
+the tangential coefficient of restitution. It is a dimensionless parameter that represents
+the ratio of the tangential component of the particle velocity after and before an elastic collision. It is given by $$tan_coeff = \frac{vt'}{vt}$$ where $vt'$ is
+the tangential component of the particle velocity after the collision, and $vt$ is
+the tangential component of the particle velocity before the collision.
+•  R: a macro that defines
+
+the gas constant. It is a scalar quantity that represents
+the product of the universal gas constant and the inverse of the molecular weight of the gas. It has units of J/kg.K.
+•  tem_Mass: a local variable that stores
+
+a temporary value for the mass flow rate of the particle.
+•  tem_Particle_Dia: a local variable that stores
+
+a temporary value for the diameter of the particle in micrometers.
+•  A[ND_ND]: an array that stores
+
+the area vector of the face.
+•  ds: a scalar that stores
+
+the area magnitude of the face.
+•  es[ND_ND]: an array that stores
+
+the unit normal vector of the face.
+•  A_by_es: a scalar that stores
+
+the dot product of A and es.
+•  dr0[ND_ND]: an array that stores
+
+the vector from the face centroid to the cell centroid.
+•  ivu, jvv, and kvw: local variables that store
+
+the projections of the fluid velocity vector onto the normal vector of the face in x, y, and z directions, respectively. They are given by $$ivu = u n_x$$ $$jvv = v n_y$$ $$kvw = w n_z$$ where $u$, $v$, and $w$ are
+the x, y, and z components of the fluid velocity vector, respectively, and $n_x$, $n_y$, and $n_z$ are
+the x, y, and z components of the normal vector of the face, respectively.
+•  du: a local variable that stores
+
+the sum of ivu and jvv. It is given by $$du = ivu + jvv$$ where $ivu$ and $jvv$ are
+the projections of the fluid velocity vector onto the normal vector of the face in x and y directions, respectively.
+•  t0: a pointer to
+
+the thread structure adjacent to
+the face on side 0.
+•  c0: a variable that represents
+
+the cell adjacent to
+the face on side 0.
+•  tauwall1, tauwall2, and tauwall3: local variables that store
+
+different estimates for
+the wall shear stress. They are scalar quantities that represent
+the tangential force per unit area exerted by
+the fluid on
+the surface. They are given by $$tauwall1 = \mu \frac{du}{ds}$$ $$tauwall2 = \mu \dot{\epsilon}$$ $$tauwall3 = \mu \sqrt{\left(\frac{\partial u}{\partial x} + \frac{\partial u}{\partial x}\right)^2 + \left(\frac{\partial v}{\partial y} + \frac{\partial v}{\partial x}\right)^2 + \left(\frac{\partial w}{\partial z} + \frac{\partial w}{\partial x}\right)^2 + \left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right)^2 + \left(\frac{\partial v}{\partial z} + \frac{\partial w}{\partial y}\right)^2 + \left(\frac{\partial u}{\partial z} + \frac{\partial w}{\partial x}\right)^2}$$ where $\mu$ is
+the viscosity
+of
+the fluid, $du$ and $ds$ are
+the sum of the projections of the fluid velocity vector onto the normal vector of the face and
+the area magnitude of the face, respectively, $\dot{\epsilon}$ is
+the strain rate magnitude
+of
+the fluid, and $u$, $v$, and $w$ are
+the x, y, and z components of the fluid velocity vector, respectively.
+•  wallfricv1, wallfricv2, wallfricv3, wallfricv4, and wallfricv5: local variables that store
+
+different estimates for
+the wall friction velocity. They are scalar quantities that represent
+the square root of the ratio of the wall shear stress to the fluid density. They are given by $$wallfricv1 = \sqrt{\frac{tauwall1}{\rho}}$$ $$wallfricv2 = \sqrt{\frac{tauwall2}{\rho}}$$ $$wallfricv3 = \sqrt{\frac{tauwall3}{\rho}}$$ $$wallfricv4 = \frac{\mu y^+}{ds \rho}$$ $$wallfricv5 = \sqrt{\frac{\mu du}{ds \rho}}$$ where $tauwall1$, $tauwall2$, and $tauwall3$ are
+different estimates for
+the wall shear stress, $\rho$ is
+the density
+of
+the fluid, $\mu$ is
+the viscosity
+of
+the fluid, $y^+$ is
+the dimensionless wall distance, $ds$ is
+the area magnitude of the face, and $du$ is
+the sum of the projections of the fluid velocity vector onto the normal vector of the face.
+•  fp: a pointer to
+
+the file object that is opened for writing.
+
+The UDF performs the following steps:
+
+
+It checks if the particle type is inert, which means that it does not react with the fluid or the surface.
+It computes the normal component and the magnitude of the particle velocity vector using dot products and vector norms.
+It computes the critical velocity for deposition using the El-Batsh criterion and other related parameters.
+It computes the mass flow rate of the particle using its density, velocity, and cross-sectional area.
+It computes the mean speed and the mean free path of the fluid molecules using the gas constant, the temperature, and the viscosity.
+It computes the Knudsen number and the Cunningham correction factor using the mean free path and the particle diameter.
+It computes the contact stiffness coefficient using the Poisson ratios and the Young's moduli of the surface and the particle.
+It computes the critical wall shear velocity and the critical friction velocity using the Cunningham correction factor, the Hamaker constant, the fluid density, the particle diameter, and the contact stiffness coefficient.
+It writes some information about the particle to a file named "Impact2.txt", such as its diameter, normal velocity, critical velocity, El-Batsh parameter, mass flow rate, critical wall shear velocity, and friction velocity.
+It stores a temporary value for the particle diameter in micrometers and assigns it to different size bins based on its value.
+It checks if the absolute value of the normal component of the particle velocity is greater than the critical velocity for deposition. If yes, it means that
